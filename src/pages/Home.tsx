@@ -19,7 +19,7 @@ const Home = () => {
       <div className="flex w-full gap-4 mt-2">
 
         {/* LEFT GRAPH AREA (flex-grow) */}
-        <div className="flex flex-col flex-grow bg-white rounded-xl shadow p-4 min-h-[500px]">
+        <div className="flex flex-col grow bg-white rounded-xl shadow p-4 min-h-[500px]">
           <Graph />
         </div>
 
