@@ -1,7 +1,12 @@
-export default function header() {
+const Header = () => {
   return (
-    <header className="w-full p-4 bg-blue-500 text-white text-xl font-semibold rounded-2xl shadow">
-      My Web Page Header
-    </header>
+    <div>
+      <h1 className="text-3xl font-semibold">Resource Allocation Graph Simulator</h1>
+      <p className="text-sm text-gray-600 mt-1">
+        Visualize and detect deadlocks using RAG and Banker’s Algorithm
+      </p>
+    </div>
   );
-}
+};
+
+export default Header;
