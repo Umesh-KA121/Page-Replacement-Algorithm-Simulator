@@ -1,28 +1,30 @@
 import Header from "../components/header";
-import Controls from "../components/Controls";
+import ButtonBar from "../components/ButtonBar";
 import Graph from "../components/Graph";
+import Controls from "../components/Controls";
 import AllocationMatrix from "../components/AllocationMatrix";
 import RequestMatrix from "../components/RequestMatrix";
 
 const Home = () => {
   return (
-    <div className="p-6 w-full flex flex-col gap-6">
+    <div className="w-full h-full p-6 flex flex-col gap-4">
+
+      {/* TOP HEADER */}
       <Header />
 
-      <div className="flex gap-6">
-        
-        {/* Graph Section */}
-        <div className="flex flex-col flex-[2] bg-white rounded-xl shadow p-4">
-          <div className="flex gap-3 mb-4">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded">Add Process</button>
-            <button className="px-4 py-2 bg-green-600 text-white rounded">Add Resource</button>
-          </div>
+      {/* BUTTON BAR BELOW HEADER */}
+      <ButtonBar />
 
-          <Graph />  
+      {/* MAIN AREA: LEFT GRAPH + RIGHT PANEL */}
+      <div className="flex w-full gap-4 mt-2">
+
+        {/* LEFT SIDE → GRAPH */}
+        <div className="flex flex-col flex-[3] bg-white rounded-xl shadow p-4">
+          <Graph />
         </div>
 
-        {/* Controls + Matrices */}
-        <div className="flex flex-col flex-1 gap-4">
+        {/* RIGHT SIDE → CONTROLS + MATRICES */}
+        <div className="flex flex-col flex-[1] gap-4">
 
           <Controls />
 
