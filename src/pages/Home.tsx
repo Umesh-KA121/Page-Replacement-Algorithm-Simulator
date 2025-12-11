@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Header from "../components/header";
+import Header from "../components/Header";
 import ButtonBar from "../components/ButtonBar";
 import Graph from "../components/GraphPanel";
 import Controls from "../components/ControlPanel";
