@@ -113,7 +113,14 @@ export const simulatePageReplacement = (
         let farthestUse = -1;
         
         for (let i = 0; i < frames.length; i++) {
-          const page = frames[i].page!;
+          const page = frames[i].page;
+          // Skip if frame is empty (shouldn't happen in replacement phase, but safety check)
+          if (page === null) {
+            optIndex = i;
+            farthestUse = Infinity;
+            break;
+          }
+          
           // Find next use of this page in future sequence
           const nextUse = pageSequence.findIndex(
             (p, idx) => idx > stepIndex && p === page

@@ -12,26 +12,33 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const handleStartSimulation = async (
+  const handleStartSimulation = (
     sequence: string[],
     memorySize: number,
     algorithm: Algorithm
   ) => {
-    setIsLoading(true);
+    // Reset state first
     setError(null);
     setSimulationResult(null);
     setCurrentStep(1);
+    
+    // Set loading state
+    setIsLoading(true);
 
-    try {
-      const result = await simulatePageReplacement(sequence, memorySize, algorithm);
-      setSimulationResult(result);
-    } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Failed to run simulation";
-      setError(errorMessage);
-      console.error("Simulation error:", err);
-    } finally {
-      setIsLoading(false);
-    }
+    // Use setTimeout to allow React to update the UI with loading state
+    // Then run simulation synchronously
+    setTimeout(() => {
+      try {
+        const result = simulatePageReplacement(sequence, memorySize, algorithm);
+        setSimulationResult(result);
+      } catch (err) {
+        const errorMessage = err instanceof Error ? err.message : "Failed to run simulation";
+        setError(errorMessage);
+        console.error("Simulation error:", err);
+      } finally {
+        setIsLoading(false);
+      }
+    }, 0);
   };
 
   return (
