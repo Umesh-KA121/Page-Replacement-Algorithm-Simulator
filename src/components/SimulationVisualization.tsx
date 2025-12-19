@@ -4,13 +4,28 @@ type SimulationVisualizationProps = {
   result: SimulationResult | null;
   currentStep: number;
   onStepChange: (step: number) => void;
+  isLoading?: boolean;
 };
 
 const SimulationVisualization = ({
   result,
   currentStep,
   onStepChange,
+  isLoading = false,
 }: SimulationVisualizationProps) => {
+  if (isLoading) {
+    return (
+      <div className="rounded-2xl border border-slate-800 bg-slate-800/50 p-6 shadow-lg">
+        <div className="flex flex-col items-center justify-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-sky-400 mb-4"></div>
+          <p className="text-slate-400 text-center">
+            Running simulation...
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (!result || result.steps.length === 0) {
     return (
       <div className="rounded-2xl border border-slate-800 bg-slate-800/50 p-6 shadow-lg">
@@ -185,6 +200,7 @@ const SimulationVisualization = ({
             >
               {step.requestedPage}
             </button>
+            
           ))}
         </div>
         <p className="mt-3 text-xs text-slate-400">

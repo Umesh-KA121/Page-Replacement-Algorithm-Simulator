@@ -1,73 +1,166 @@
-# React + TypeScript + Vite
+# Page Replacement Algorithm Simulator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A full-stack web application for simulating various page replacement algorithms used in operating systems memory management.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Five Page Replacement Algorithms:**
+  - FIFO (First In First Out)
+  - LRU (Least Recently Used)
+  - OPT (Optimal)
+  - LFU (Least Frequently Used)
+  - Clock Algorithm
 
-## React Compiler
+- **Interactive Visualization:**
+  - Step-by-step simulation visualization
+  - Real-time frame status display
+  - Hit/Fault statistics
+  - Detailed explanations for each step
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+### Frontend
+- **React 19** - UI library
+- **TypeScript** - Type safety
+- **Vite** - Build tool and dev server
+- **Tailwind CSS** - Styling
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Backend
+- **Node.js** - Runtime environment
+- **Express** - Web framework
+- **TypeScript** - Type safety
+- **CORS** - Cross-origin resource sharing
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+├── src/                    # Frontend source code
+│   ├── components/         # React components
+│   ├── utils/              # Frontend utilities (API client)
+│   └── types.ts            # TypeScript types
+├── server/                 # Backend source code
+│   ├── src/
+│   │   ├── routes/         # API routes
+│   │   ├── utils/          # Backend utilities (simulator)
+│   │   ├── types.ts        # Backend types
+│   │   ├── app.ts          # Express app setup
+│   │   └── server.ts       # Server entry point
+│   └── tsconfig.json       # TypeScript config for backend
+└── package.json            # Dependencies and scripts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd Page-Replacement-Algorithm-Simulator
 ```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+### Running the Application
+
+#### Option 1: Run Both Frontend and Backend Together (Recommended)
+```bash
+npm run dev:all
+```
+
+This will start:
+- Backend server on `http://localhost:3001`
+- Frontend dev server on `http://localhost:5173` (or next available port)
+
+#### Option 2: Run Separately
+
+**Backend only:**
+```bash
+npm run dev:server
+```
+
+**Frontend only:**
+```bash
+npm run dev
+```
+
+### Building for Production
+
+**Build frontend:**
+```bash
+npm run build
+```
+
+**Build backend:**
+```bash
+npm run build:server
+```
+
+**Start production server:**
+```bash
+npm run start:server
+```
+
+## API Endpoints
+
+### POST `/api/simulate`
+
+Run a page replacement simulation.
+
+**Request Body:**
+```json
+{
+  "pageSequence": ["1", "2", "3", "4", "1", "2", "5"],
+  "memorySize": 3,
+  "algorithm": "lru"
+}
+```
+
+**Response:**
+```json
+{
+  "steps": [...],
+  "totalHits": 2,
+  "totalFaults": 5,
+  "hitRatio": 0.285
+}
+```
+
+### GET `/health`
+
+Health check endpoint.
+
+**Response:**
+```json
+{
+  "status": "ok",
+  "message": "Page Replacement Algorithm Simulator API"
+}
+```
+
+## Usage
+
+1. Select a page replacement algorithm from the dropdown
+2. Enter a page request sequence (e.g., `1,2,3,4,1,2,5,1,2,3,4,5`)
+3. Set the memory size (number of frames, 1-10)
+4. Click "Start Simulation"
+5. Navigate through steps to see detailed visualization
+
+## Development
+
+The project uses:
+- **Vite** for frontend development with hot module replacement
+- **tsx** for backend development with watch mode
+- **Concurrently** to run both servers simultaneously
+
+## License
+
+MIT

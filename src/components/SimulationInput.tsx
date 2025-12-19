@@ -6,6 +6,7 @@ type SimulationInputProps = {
   isAlgorithmSelected: boolean;
   selectedAlgorithm: Algorithm;
   onAlgorithmChange: (algorithm: Algorithm) => void;
+  isLoading?: boolean;
 };
 
 const SimulationInput = ({
@@ -13,6 +14,7 @@ const SimulationInput = ({
   isAlgorithmSelected,
   selectedAlgorithm,
   onAlgorithmChange,
+  isLoading = false,
 }: SimulationInputProps) => {
   const [pageSequence, setPageSequence] = useState("");
   const [memorySize, setMemorySize] = useState("3");
@@ -103,14 +105,14 @@ const SimulationInput = ({
 
         <button
           type="submit"
-          disabled={!isAlgorithmSelected}
+          disabled={!isAlgorithmSelected || isLoading}
           className={`w-full rounded-lg px-4 py-2 font-medium transition focus:outline-none focus:ring-2 ${
-            isAlgorithmSelected
+            isAlgorithmSelected && !isLoading
               ? "bg-emerald-500 text-slate-900 hover:bg-emerald-400 focus:ring-emerald-400/60 cursor-pointer"
               : "bg-slate-700 text-slate-400 cursor-not-allowed"
           }`}
         >
-          Start Simulation
+          {isLoading ? "Running Simulation..." : "Start Simulation"}
         </button>
       </form>
     </div>
